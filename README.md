@@ -1,14 +1,6 @@
 # ✨ StudyMate ✨
-
 <div align="center">
-<pre>
- ____  _             _       __  __       _        
-/ ___|| |_ _   _  __| |_   _|  \/  | __ _| |_ ___  
-\___ \| __| | | |/ _` | | | | |\/| |/ _` | __/ _ \ 
- ___) | |_| |_| | (_| | |_| | |  | | (_| | ||  __/ 
-|____/ \__|\__,_|\__,_|\__, |_|  |_|\__,_|\__\___| 
-                       |___/                       
-</pre>
+  <img src="./src/images/StudyMate_banner.png" alt="StudyMate Banner">
 </div>
 <div align="center">
 *Because studying alone is so last semester* 📚💫
