@@ -1,5 +1,6 @@
 {
-  "name": "classmate-study-buddy",
+  "name": "StudyMate",
+  "homepage": "https://amen-ikamba.github.io/StudyMate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,12 +14,16 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
