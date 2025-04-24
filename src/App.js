@@ -1,100 +1,112 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const App = () => {
-  const [resources, setResources] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [subject, setSubject] = useState('');
-  const [fileURL, setFileURL] = useState('');
+// Tab Components
+import ResourcesTab from './components/ResourcesTab.js';
+import GoalsTab from './components/GoalsTab';
+import NotesTab from './components/NotesTab';
+import SessionsTab from './components/SessionsTab';
 
-  // Load resources from local storage when the component mounts
+const App = () => {
+  const [activeTab, setActiveTab] = useState('resources');
+  const [resources, setResources] = useState([]);
+  const [goals, setGoals] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const [uniqueSubjects, setUniqueSubjects] = useState([]);
+
+  // Load data from local storage
   useEffect(() => {
     const storedResources = JSON.parse(localStorage.getItem('resources')) || [];
+    const storedGoals = JSON.parse(localStorage.getItem('studyGoals')) || [];
+    const storedNotes = JSON.parse(localStorage.getItem('collaborativeNotes')) || [];
+    const storedSessions = JSON.parse(localStorage.getItem('studySessions')) || [];
+    
     setResources(storedResources);
+    setGoals(storedGoals);
+    setNotes(storedNotes);
+    setSessions(storedSessions);
   }, []);
 
-  // Save resources to local storage whenever the resources state changes
+  // Save data to local storage
   useEffect(() => {
     localStorage.setItem('resources', JSON.stringify(resources));
-  }, [resources]);
+    localStorage.setItem('studyGoals', JSON.stringify(goals));
+    localStorage.setItem('collaborativeNotes', JSON.stringify(notes));
+    localStorage.setItem('studySessions', JSON.stringify(sessions));
+  }, [resources, goals, notes, sessions]);
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (title && description && subject) {
-      const newResource = { title, description, subject, fileURL };
-      setResources([...resources, newResource]);
-      setTitle('');
-      setDescription('');
-      setSubject('');
-      setFileURL('');
-    }
-  };
+  // Extract unique subjects for filtering
+  useEffect(() => {
+    const subjects = [...new Set(resources.map(resource => resource.subject))];
+    setUniqueSubjects(subjects);
+  }, [resources]);
 
   return (
     <div className="App">
       <header>
         <h1>StudyMate</h1>
-        <p>Share and discover helpful study resources!</p>
+        <p>Your study companion for sharing resources and learning together!</p>
       </header>
 
-      <section>
-        <h2>Upload Study Resource</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Resource Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Resource Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-          />
-          <input
-            type="url"
-            placeholder="File URL (optional)"
-            value={fileURL}
-            onChange={(e) => setFileURL(e.target.value)}
-          />
-          <button type="submit">Upload Resource</button>
-        </form>
-      </section>
+      <nav className="tab-navigation">
+        <button 
+          className={activeTab === 'resources' ? 'active' : ''}
+          onClick={() => setActiveTab('resources')}
+        >
+          Resources
+        </button>
+        <button 
+          className={activeTab === 'goals' ? 'active' : ''}
+          onClick={() => setActiveTab('goals')}
+        >
+          Study Goals
+        </button>
+        <button 
+          className={activeTab === 'notes' ? 'active' : ''}
+          onClick={() => setActiveTab('notes')}
+        >
+          Notes
+        </button>
+        <button 
+          className={activeTab === 'sessions' ? 'active' : ''}
+          onClick={() => setActiveTab('sessions')}
+        >
+          Study Sessions
+        </button>
+      </nav>
 
-      <section>
-        <h2>Available Resources</h2>
-        {resources.length === 0 ? (
-          <div className="empty-state">
-            <p>No resources available. Upload one to get started!</p>
-          </div>
-        ) : (
-          <ul>
-            {resources.map((resource, index) => (
-              <li key={index}>
-                <strong>{resource.title}</strong>
-                <p>{resource.description}</p>
-                <em>{resource.subject}</em>
-                {resource.fileURL && (
-                  <a href={resource.fileURL} target="_blank" rel="noopener noreferrer">
-                    Download
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
+      <div className="tab-content">
+        {activeTab === 'resources' && (
+          <ResourcesTab 
+            resources={resources} 
+            setResources={setResources}
+            uniqueSubjects={uniqueSubjects}
+          />
         )}
-      </section>
+        
+        {activeTab === 'goals' && (
+          <GoalsTab 
+            goals={goals}
+            setGoals={setGoals}
+          />
+        )}
+        
+        {activeTab === 'notes' && (
+          <NotesTab 
+            notes={notes}
+            setNotes={setNotes} 
+          />
+        )}
+        
+        {activeTab === 'sessions' && (
+          <SessionsTab 
+            sessions={sessions}
+            setSessions={setSessions}
+            uniqueSubjects={uniqueSubjects}
+          />
+        )}
+      </div>
     </div>
   );
 };
