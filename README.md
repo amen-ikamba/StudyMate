@@ -1,9 +1,7 @@
-# ✨ StudyMate ✨
 <div align="center">
   <img src="./src/images/StudyMate_banner.png" alt="StudyMate Banner">
 </div>
 <div align="center">
-*Because studying alone is so last semester* 📚💫
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Made with React](https://img.shields.io/badge/Made_with-React-61DAFB?logo=react&logoColor=white)](https://reactjs.org/)
