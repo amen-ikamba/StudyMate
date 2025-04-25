@@ -24,21 +24,9 @@
 | 📝 **Collaborative Notes** | Create and edit notes together | Real-time editing with your study buddies |
 | ⏱️ **Study Sessions** | Track your studying time | See your productivity patterns with beautiful stats |
 
-## 🛠️ Get Up & Running in 30 Seconds
+## 🛠️ Get Up & Running in 2 Seconds
 
-```bash
-# Clone our awesomeness
-git clone https://github.com/yourusername/studymate.git
-
-# Enter the zone
-cd studymate
-
-# Power up!
-npm install
-npm start
-```
-
-Then open **[http://localhost:3000](http://localhost:3000)** and begin your journey to study enlightenment!
+Open **[StudyMate](http://localhost:3000](https://study-mate-rho.vercel.app/))** and begin your journey to study enlightenment!
 
 ## 💡 How StudyMate Changes The Game
 
